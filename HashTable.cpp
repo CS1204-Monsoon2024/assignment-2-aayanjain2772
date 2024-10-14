@@ -54,11 +54,10 @@ private:
     }
 
 public:
-    // Constructor to initialize the hash table with a size that's at least as big as 'initialSize'
     HashTable(int initialSize)
-        : EMPTY(-1), DELETED(-2), loadFactorThreshold(0.8) { // Initialization list
-        size = nextPrime(initialSize);  // Ensure the size is a prime number greater than or equal to 'initialSize'
-        table = std::vector<int>(size, EMPTY);  // Initialize the hash table with 'EMPTY' values
+        : EMPTY(-1), DELETED(-2), loadFactorThreshold(0.8) { 
+        size = nextPrime(initialSize);  
+        table = std::vector<int>(size, EMPTY);  
         count = 0;  // No elements inserted initially
     }
 
