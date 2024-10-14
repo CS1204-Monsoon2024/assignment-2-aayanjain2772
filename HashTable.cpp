@@ -7,9 +7,9 @@ private:
     std::vector<int> table;     // The hash table
     int size;                   // Current size of the table
     int count;                  // Number of elements in the table
-    const int EMPTY = -1;       // Empty slots are denoted by -1
-    const int DELETED = -2;     // Deleted slots are denoted by -2
-    const double loadFactorThreshold = 0.8;
+    const int EMPTY;            // Empty slots are denoted by -1
+    const int DELETED;          // Deleted slots are denoted by -2
+    const double loadFactorThreshold; // Load factor threshold for resizing
 
     // Function to calculate the next prime number >= n
     int nextPrime(int n) {
@@ -55,7 +55,8 @@ private:
 
 public:
     // Constructor to initialize the hash table with a size that's at least as big as 'initialSize'
-    HashTable(int initialSize) {
+    HashTable(int initialSize)
+        : EMPTY(-1), DELETED(-2), loadFactorThreshold(0.8) { // Initialization list
         size = nextPrime(initialSize);  // Ensure the size is a prime number greater than or equal to 'initialSize'
         table = std::vector<int>(size, EMPTY);  // Initialize the hash table with 'EMPTY' values
         count = 0;  // No elements inserted initially
@@ -70,6 +71,7 @@ public:
         int idx = hashFunction(key);
         int i = 0;
 
+        // Quadratic probing
         while (table[(idx + i * i) % size] != EMPTY && table[(idx + i * i) % size] != DELETED) {
             if (table[(idx + i * i) % size] == key) {
                 std::cout << "Duplicate key insertion is not allowed" << std::endl;
@@ -91,6 +93,7 @@ public:
         int idx = hashFunction(key);
         int i = 0;
 
+        // Quadratic probing for search
         while (table[(idx + i * i) % size] != EMPTY) {
             if (table[(idx + i * i) % size] == key) {
                 return (idx + i * i) % size;
