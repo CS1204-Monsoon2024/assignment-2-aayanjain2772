@@ -4,12 +4,12 @@
 
 class HashTable {
 private:
-    std::vector<int> table;
-    int size;
-    int count;
-    int EMPTY;
-    int DELETED;
-    double loadFactorThreshold;
+    std::vector<int> table;     
+    int size;                   
+    int count;                 
+    int EMPTY;            
+    int DELETED;          
+    double loadFactorThreshold; 
 
     // Function to calculate the next prime number >= n
     int nextPrime(int n) {
@@ -35,7 +35,7 @@ private:
         return key % size;
     }
 
-    // Resizing the hash table
+    // Resizing the hash table 
     void resize() {
         int oldSize = size;
         std::vector<int> oldTable = table;
@@ -45,6 +45,7 @@ private:
         table = std::vector<int>(size, EMPTY);
         count = 0;
 
+    
         for (int i = 0; i < oldSize; i++) {
             if (oldTable[i] != EMPTY && oldTable[i] != DELETED) {
                 insert(oldTable[i]);
@@ -54,10 +55,10 @@ private:
 
 public:
     HashTable(int initialSize)
-        : EMPTY(-1), DELETED(-2), loadFactorThreshold(0.8) {
-        size = nextPrime(initialSize);
-        table = std::vector<int>(size, EMPTY);
-        count = 0;
+        : EMPTY(-1), DELETED(-2), loadFactorThreshold(0.8) { 
+        size = nextPrime(initialSize);  
+        table = std::vector<int>(size, EMPTY);  
+        count = 0;  // No elements are inserted 
     }
 
     // Insert function
@@ -127,36 +128,3 @@ public:
         std::cout << std::endl;
     }
 };
-
-// Main function to test the hash table
-int main() {
-    HashTable ht(7);  // Initialize hash table with size 7 (will be resized to nearest prime)
-
-    // Insert values
-    ht.insert(10);
-    ht.insert(20);
-    ht.insert(30);
-    ht.insert(40);
-    ht.insert(22);
-    ht.insert(15);
-
-    // Print hash table
-    std::cout << "Hash table after insertions:" << std::endl;
-    ht.printTable();
-
-    // Search for an element
-    int searchKey = 22;
-    int searchIndex = ht.search(searchKey);
-    if (searchIndex != -1) {
-        std::cout << "Element " << searchKey << " found at index " << searchIndex << std::endl;
-    } else {
-        std::cout << "Element " << searchKey << " not found" << std::endl;
-    }
-
-    // Remove an element
-    ht.remove(20);
-    std::cout << "Hash table after removing 20:" << std::endl;
-    ht.printTable();
-
-    return 0;
-}
