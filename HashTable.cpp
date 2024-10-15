@@ -4,12 +4,12 @@
 
 class HashTable {
 private:
-    std::vector<int> table;     // The hash table
-    int size;                   // Current size of the table
-    int count;                  // Number of elements in the table
-    const int EMPTY;            // Empty slots are denoted by -1
-    const int DELETED;          // Deleted slots are denoted by -2
-    const double loadFactorThreshold; // Load factor threshold for resizing
+    std::vector<int> table;     
+    int size;                   
+    int count;                 
+    int EMPTY;            
+    int DELETED;          
+    double loadFactorThreshold; 
 
     // Function to calculate the next prime number >= n
     int nextPrime(int n) {
@@ -35,7 +35,7 @@ private:
         return key % size;
     }
 
-    // Resize the hash table when the load factor exceeds the threshold
+    // Resizing the hash table 
     void resize() {
         int oldSize = size;
         std::vector<int> oldTable = table;
@@ -45,7 +45,7 @@ private:
         table = std::vector<int>(size, EMPTY);
         count = 0;
 
-        // Rehash all the elements from the old table
+    
         for (int i = 0; i < oldSize; i++) {
             if (oldTable[i] != EMPTY && oldTable[i] != DELETED) {
                 insert(oldTable[i]);
@@ -58,7 +58,7 @@ public:
         : EMPTY(-1), DELETED(-2), loadFactorThreshold(0.8) { 
         size = nextPrime(initialSize);  
         table = std::vector<int>(size, EMPTY);  
-        count = 0;  // No elements inserted initially
+        count = 0;  // No elements are inserted 
     }
 
     // Insert function
