@@ -6,9 +6,9 @@ class HashTable {
 private:
     std::vector<int> table;     
     int size;                   
-    int count;                 
-    int EMPTY;            
-    int DELETED;          
+    int count;                  
+    int EMPTY;                  
+    int DELETED;                
     double loadFactorThreshold; 
 
     // Function to calculate the next prime number >= n
@@ -35,17 +35,17 @@ private:
         return key % size;
     }
 
-    // Resizing the hash table 
+    // Resizing the hash table when the load factor exceeds the threshold
     void resize() {
         int oldSize = size;
         std::vector<int> oldTable = table;
 
-        // Resize the table to a new prime size
+        // Resizing  the table to a new prime size
         size = nextPrime(2 * oldSize);
         table = std::vector<int>(size, EMPTY);
         count = 0;
 
-    
+        
         for (int i = 0; i < oldSize; i++) {
             if (oldTable[i] != EMPTY && oldTable[i] != DELETED) {
                 insert(oldTable[i]);
@@ -58,7 +58,7 @@ public:
         : EMPTY(-1), DELETED(-2), loadFactorThreshold(0.8) { 
         size = nextPrime(initialSize);  
         table = std::vector<int>(size, EMPTY);  
-        count = 0;  // No elements are inserted 
+        count = 0;  // No elements inserted initially
     }
 
     // Insert function
@@ -77,7 +77,7 @@ public:
                 return;
             }
             i++;
-            if (i == size / 2 + 1) {
+            if (i == (size + 1) / 2) {  // Updated probing limit based on problem statement
                 std::cout << "Max probing limit reached!" << std::endl;
                 return;
             }
@@ -98,7 +98,7 @@ public:
                 return (idx + i * i) % size;
             }
             i++;
-            if (i == size / 2 + 1) {
+            if (i == (size + 1) / 2) {
                 break;
             }
         }
